@@ -1,0 +1,23 @@
+import React, { useState } from 'react';
+import Weather from './components/Weather';
+import Search from './components/Search';
+
+const App = () => {
+  const [weatherData, setWeatherData] = useState(null);
+  
+  const fetchWeather = async (city) => {
+    const response = await fetch(`http://localhost:5000/weather?city=${city}`);
+    const data = await response.json();
+    setWeatherData(data);
+  };
+
+  return (
+    <div>
+      <h1>Weather Dashboard</h1>
+      <Search fetchWeather={fetchWeather} />
+      {weatherData && <Weather data={weatherData} />}
+    </div>
+  );
+};
+
+export default App;
